@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     var n=0
     var someArray:[Int]=[0]
+    @IBOutlet weak var countWindow: UILabel!
     @IBOutlet weak var clickCheck: UILabel!
     @IBOutlet weak var viewSum: UILabel!
     @IBAction func click() {
@@ -35,5 +36,11 @@ class ViewController: UIViewController {
         for a in someArray[0...someArray.count-1] { totalSum+=a }
         viewSum.text="\(totalSum)"
     }
+    @IBAction func newScreen(_ sender: UIButton) {
+        let storyboard=UIStoryboard(name: "Main", bundle: nil)
+        let controller=storyboard.instantiateViewController(withIdentifier: "someViewController")
+        self.present(controller , animated: true, completion: nil)
+    }
+    
 }
 
