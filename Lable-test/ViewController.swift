@@ -39,8 +39,14 @@ class ViewController: UIViewController {
     @IBAction func newScreen(_ sender: UIButton) {
         let storyboard=UIStoryboard(name: "Main", bundle: nil)
         let controller=storyboard.instantiateViewController(withIdentifier: "someViewController")
+        Values.m+=1
         self.present(controller , animated: true, completion: nil)
+        countWindow.text=Values.textScreen
     }
-    
+  
 }
 
+class Values {
+    static var m:Int=1
+    static var textScreen:String="Screen № \(m)"
+}
