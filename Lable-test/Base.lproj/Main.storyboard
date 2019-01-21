@@ -54,7 +54,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="center" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHB-Kz-lpC">
+                            <button opaque="NO" contentMode="center" fixedFrame="YES" restorationIdentifier="Summa" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lHB-Kz-lpC">
                                 <rect key="frame" x="167" y="40" width="43" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
@@ -81,17 +81,37 @@
                                     <action selector="newScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="C5I-a0-vv3"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4l-dn-FFe">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Screen №1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g4l-dn-FFe">
                                 <rect key="frame" x="116" y="474" width="142" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total opened screen - 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ILI-Wm-kJY">
+                                <rect key="frame" x="97" y="445" width="180" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jQo-rd-Ra9">
+                                <rect key="frame" x="169" y="623" width="39" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Close"/>
+                                <connections>
+                                    <action selector="closeWindow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cFY-XU-GSU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="mjm-Zc-QVh"/>
                     </view>
                     <connections>
+                        <outlet property="buttonBackClick" destination="I7z-k5-hQg" id="G6A-Ye-egF"/>
+                        <outlet property="buttonClick" destination="JxM-OY-Dgq" id="sOr-em-tMO"/>
+                        <outlet property="buttonClose" destination="jQo-rd-Ra9" id="VK9-21-wkj"/>
+                        <outlet property="buttonSum" destination="lHB-Kz-lpC" id="wAA-sC-x9R"/>
+                        <outlet property="buttonZero" destination="EhY-te-C69" id="Yah-6W-1zP"/>
                         <outlet property="clickCheck" destination="H3a-TX-k5N" id="SZX-Xt-6IX"/>
                         <outlet property="countWindow" destination="g4l-dn-FFe" id="cw5-ul-i0A"/>
                         <outlet property="viewSum" destination="0mG-4v-Zlp" id="DMP-0B-vRn"/>

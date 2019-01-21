@@ -10,11 +10,18 @@ import UIKit
 
 class ViewController : UIViewController {
     var n = 0
-    static var count = 0
+    static var count = 1
     var someArray : [Int] = [0]
     @IBOutlet weak var countWindow : UILabel!
     @IBOutlet weak var clickCheck : UILabel!
     @IBOutlet weak var viewSum : UILabel!
+    @IBOutlet weak var buttonSum: UIButton!
+    @IBOutlet weak var buttonBackClick: UIButton!
+    @IBOutlet weak var buttonZero: UIButton!
+    @IBOutlet weak var buttonClick: UIButton!
+    @IBOutlet weak var buttonClose: UIButton!
+    @IBAction func closeWindow(_ sender: UIButton) {
+    }
     @IBAction func click() {
         n += 1
         updateTextField(n)
@@ -48,6 +55,11 @@ class ViewController : UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller : ViewController = storyboard.instantiateViewController(withIdentifier: "someViewController") as! ViewController
         self.present(controller, animated: true, completion: nil)
+        controller.buttonBackClick.isHidden = true
+        controller.buttonClick.isHidden = true
+        controller.buttonSum.isHidden = true
+        controller.buttonZero.isHidden = true
+        controller.buttonClose.isHidden = false
         controller.countWindow.text = "Screen № \(ViewController.count)"
     }
 }
