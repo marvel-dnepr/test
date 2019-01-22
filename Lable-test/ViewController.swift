@@ -11,7 +11,9 @@ import UIKit
 class ViewController : UIViewController {
     var n = 0
     static var count = 1
+    static var totalWindow = 1
     var someArray : [Int] = [0]
+    var link : ViewController!
     @IBOutlet weak var countWindow : UILabel!
     @IBOutlet weak var clickCheck : UILabel!
     @IBOutlet weak var viewSum : UILabel!
@@ -20,7 +22,9 @@ class ViewController : UIViewController {
     @IBOutlet weak var buttonZero: UIButton!
     @IBOutlet weak var buttonClick: UIButton!
     @IBOutlet weak var buttonClose: UIButton!
+    @IBOutlet weak var totalOpenedWindow: UILabel!
     @IBAction func closeWindow(_ sender: UIButton) {
+        link.dismiss(animated: true, completion: nil)
     }
     @IBAction func click() {
         n += 1
@@ -52,15 +56,22 @@ class ViewController : UIViewController {
     }
     @IBAction func newScreen(_ sender: UIButton) {
         ViewController.count += 1
+        ViewController.totalWindow += 1
+        let nextView = newViewController()
+        self.present(nextView, animated: true, completion: nil)
+        nextView.buttonBackClick.isHidden = true
+        nextView.buttonClick.isHidden = true
+        nextView.buttonSum.isHidden = true
+        nextView.buttonZero.isHidden = true
+        nextView.buttonClose.isHidden = false
+        nextView.countWindow.text = "Screen № \(ViewController.count)"
+        nextView.totalOpenedWindow.text = "Total opened screen - \(ViewController.totalWindow)"
+        link = nextView
+    }
+    func newViewController () -> ViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller : ViewController = storyboard.instantiateViewController(withIdentifier: "someViewController") as! ViewController
-        self.present(controller, animated: true, completion: nil)
-        controller.buttonBackClick.isHidden = true
-        controller.buttonClick.isHidden = true
-        controller.buttonSum.isHidden = true
-        controller.buttonZero.isHidden = true
-        controller.buttonClose.isHidden = false
-        controller.countWindow.text = "Screen № \(ViewController.count)"
+        return controller
     }
 }
 
