@@ -11,10 +11,10 @@ import UIKit
 class ViewController : UIViewController {
     var n = 0
     var someArray : [Int] = [0]
+    var root : UIViewController!            //Объявляю переменную для хранения адреса родительского контроллера
+    var rootTotalOpenedWindow : UILabel!    //Объявляю переменную для хранения адреса на родительский Label - Общее количество открытых окон
     static var count = 1
     static var totalWindow = 1
-    static var link : UIViewController!
-    var root : UIViewController!
     @IBOutlet weak var countWindow : UILabel!
     @IBOutlet weak var clickCheck : UILabel!
     @IBOutlet weak var viewSum : UILabel!
@@ -26,9 +26,11 @@ class ViewController : UIViewController {
     @IBOutlet weak var totalOpenedWindow: UILabel!
     @IBAction func closeWindow(_ sender: UIButton) {
         
-        // Обращаюсь к родительскому ViewController, который находится в статической переменной link, и прошу его закрыть созданный им ViewController
+        // Обращаюсь к родительскому ViewController, который находится в переменной root (на момент обращения, она уже будет не пустая), и прошу его закрыть созданный им ViewController и обновляю информацию в метке родительского ViewController (rootTotalOpenedWindow), для корректного отображения количество открытваемых окон
         
-        ViewController.link.dismiss(animated: true, completion: nil)
+        root.dismiss(animated: true, completion: nil)
+        ViewController.count -= 1
+        rootTotalOpenedWindow.text = "Total opened screen - \(ViewController.totalWindow)"
     }
     @IBAction func click() {
         n += 1
@@ -63,25 +65,25 @@ class ViewController : UIViewController {
         ViewController.totalWindow += 1
         let controller : ViewController = storyboard!.instantiateViewController(withIdentifier: "someViewController") as! ViewController
         
-        // записываю адрес родительского View Controller в переменную root
+        // записываю адрес родительского View Controller в переменную root и адрес метки родительского TotalOpenedWindow в переменную rootTotalOpenedWindow
         
         controller.root = self
-        
-        // передаю адрес родительского View Controller в статическую переменную link, чтоб до него можно было достучаться в других методах
-        
-        ViewController.link = controller.root
+        controller.rootTotalOpenedWindow = self.totalOpenedWindow
         
         // Обращаюсь к родительскому ViewController и прошу отобразить созданный им новый ViewController
         
         self.present(controller, animated: true, completion: nil)
-        
+        hideAll(controller: controller)         //Скрываю ненужные элементы на новом ViewController
+        controller.view.backgroundColor = UIColor.init(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1.0)
+        controller.countWindow.text = "Screen № \(ViewController.count)"
+        controller.totalOpenedWindow.text = "Total opened screen - \(ViewController.totalWindow)"
+        }
+    func hideAll(controller: ViewController) {
         controller.buttonBackClick.isHidden = true
         controller.buttonClick.isHidden = true
         controller.buttonSum.isHidden = true
         controller.buttonZero.isHidden = true
         controller.buttonClose.isHidden = false
-        controller.countWindow.text = "Screen № \(ViewController.count)"
-        controller.totalOpenedWindow.text = "Total opened screen - \(ViewController.totalWindow)"
     }
     
 }
