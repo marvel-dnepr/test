@@ -11,10 +11,9 @@ import UIKit
 class ViewController : UIViewController {
     var n = 0
     var someArray : [Int] = [0]
-    var root : UIViewController!            //Объявляю переменную для хранения адреса родительского контроллера
-    var rootTotalOpenedWindow : UILabel!    //Объявляю переменную для хранения адреса на родительский Label - Общее количество открытых окон
-    static var count = 1
-    static var totalWindow = 1
+    var root : ViewController!            //Объявляю переменную для хранения адреса родительского контроллера
+    static var count = 0
+    static var totalWindow = 0
     @IBOutlet weak var countWindow : UILabel!
     @IBOutlet weak var clickCheck : UILabel!
     @IBOutlet weak var viewSum : UILabel!
@@ -25,12 +24,12 @@ class ViewController : UIViewController {
     @IBOutlet weak var buttonClose: UIButton!
     @IBOutlet weak var totalOpenedWindow: UILabel!
     @IBAction func closeWindow(_ sender: UIButton) {
+        ViewController.count -= 1
         
-        // Обращаюсь к родительскому ViewController, который находится в переменной root (на момент обращения, она уже будет не пустая), и прошу его закрыть созданный им ViewController и обновляю информацию в метке родительского ViewController (rootTotalOpenedWindow), для корректного отображения количество открытваемых окон
+        // Обращаюсь к родительскому ViewController, который находится в переменной root (на момент обращения, она уже будет не пустая), и прошу его закрыть созданный им ViewController
         
         root.dismiss(animated: true, completion: nil)
-        ViewController.count -= 1
-        rootTotalOpenedWindow.text = "Total opened screen - \(ViewController.totalWindow)"
+        
     }
     @IBAction func click() {
         n += 1
@@ -61,31 +60,41 @@ class ViewController : UIViewController {
         viewSum.text = "\(totalSum)"
     }
     @IBAction func newScreen(_ sender: UIButton) {
-        ViewController.count += 1
-        ViewController.totalWindow += 1
+        
         let controller : ViewController = storyboard!.instantiateViewController(withIdentifier: "someViewController") as! ViewController
-        
-        // записываю адрес родительского View Controller в переменную root и адрес метки родительского TotalOpenedWindow в переменную rootTotalOpenedWindow
-        
-        controller.root = self
-        controller.rootTotalOpenedWindow = self.totalOpenedWindow
         
         // Обращаюсь к родительскому ViewController и прошу отобразить созданный им новый ViewController
         
         self.present(controller, animated: true, completion: nil)
-        hideAll(controller: controller)         //Скрываю ненужные элементы на новом ViewController
-        controller.view.backgroundColor = UIColor.init(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1.0)
-        controller.countWindow.text = "Screen № \(ViewController.count)"
-        controller.totalOpenedWindow.text = "Total opened screen - \(ViewController.totalWindow)"
+        
+        // записываю адрес родительского View Controller в переменную root
+        
+        controller.root = self
+        
         }
-    func hideAll(controller: ViewController) {
-        controller.buttonBackClick.isHidden = true
-        controller.buttonClick.isHidden = true
-        controller.buttonSum.isHidden = true
-        controller.buttonZero.isHidden = true
-        controller.buttonClose.isHidden = false
+    func hideAll() {
+        buttonBackClick.isHidden = true
+        buttonClick.isHidden = true
+        buttonSum.isHidden = true
+        buttonZero.isHidden = true
+        buttonClose.isHidden = false
     }
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ViewController.count += 1
+        ViewController.totalWindow += 1
+        if ViewController.count > 1  {
+            view.backgroundColor = UIColor.init(red: CGFloat(drand48()), green: CGFloat(drand48()), blue: CGFloat(drand48()), alpha: 1.0)
+        }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if ViewController.count > 1  {
+            hideAll() //Скрываю ненужные элементы на новом ViewController перед тем как он отобразится
+        }
+        totalOpenedWindow.text = "Total opened screen - \(ViewController.totalWindow)"
+        countWindow.text = "Screen № \(ViewController.count)"
+    }
 }
 
 
